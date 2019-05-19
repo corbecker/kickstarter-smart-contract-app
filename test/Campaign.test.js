@@ -53,4 +53,19 @@ describe('Campaigns', () => {
       assert(err);
     }
   });
+  it('increments contributer count', async () => {
+    await campaign.methods.contribute().send({
+      from: accounts[1],
+      value: '1000'
+    });
+    const count = await campaign.methods.contributerCount().call();
+    assert.equal(1, count);
+  });
+  it('allows a manager to make a payment request', async () => {
+    await campaign.methods
+      .createRequest('Buy Supplies','100',accounts[2])
+      .send({ from: accounts[0], gas: '1000000' });
+    const request = await campaign.methods.requests(0).call();
+    assert.equal('Buy Supplies', request.description);
+  });
 });
