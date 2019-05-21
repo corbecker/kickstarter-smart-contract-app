@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import instance from '../ethereum/factory';
-import { Card, Button, Icon } from 'semantic-ui-react';
+import { Card, Button, Grid } from 'semantic-ui-react';
 import Layout from '../components/Layout';
 
 class App extends Component{
@@ -36,20 +36,16 @@ class App extends Component{
   render() {
     return (
       <Layout>
-      <div>
-        <link
-          rel="stylesheet"
-          href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
-        />
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"/>
         <h3>Open Campaigns</h3>
-        <div>{this.renderCampaigns()}</div>
-        <Button
-          content="CREATE CAMPAIGN"
-          icon="plus"
-          primary
-        />
-
-      </div>
+        <Grid stackable columns={2}>
+          <Grid.Column width={12}>
+            <div>{this.renderCampaigns()}</div>
+          </Grid.Column>
+          <Grid.Column width={4}>
+            <Button content="CREATE CAMPAIGN" icon="plus" primaryfloated="right"/>
+          </Grid.Column>
+        </Grid>
       </Layout>
     )
   }
