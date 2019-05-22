@@ -3,6 +3,7 @@ import Layout from '../../components/Layout';
 import { Grid, Card } from 'semantic-ui-react';
 import getCampaign from '../../ethereum/campaign';
 import web3 from '../../ethereum/web3';
+import ContributeForm from '../../components/ContributeForm';
 
 class CampaignShow extends Component {
 
@@ -16,7 +17,8 @@ class CampaignShow extends Component {
       balance: summary[1],
       requests: summary[2], 
       contributors: summary[3],
-      manager: summary[4]
+      manager: summary[4],
+      address: props.query.address
     };
   }
 
@@ -58,12 +60,13 @@ class CampaignShow extends Component {
     return (
       <Layout>
         <Grid stackable columns={2}>
-          <Grid.Column width={12}>
+          <Grid.Column width={10}>
           <h3>Campaign Details</h3>
           {this.renderCards()}
           </Grid.Column>
-          <Grid.Column width={4}>
+          <Grid.Column width={6}>
             <h3>Contribute to this Campaign</h3>
+            <ContributeForm address={this.props.address}></ContributeForm>
           </Grid.Column>
         </Grid>
 
