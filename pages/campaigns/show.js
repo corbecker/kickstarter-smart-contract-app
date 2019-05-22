@@ -9,10 +9,8 @@ class CampaignShow extends Component {
   static async getInitialProps(props) {
     const accounts = await web3.eth.getAccounts();
     const campaign = getCampaign(props.query.address);
-    console.log(campaign)
-    const summary = await campaign.methods.summary().call();
-
-    console.log(summary);
+    const { 0: minimumContribution, 1: balance, 2: requests, 3: contributers, 4: manager} = await campaign.methods.summary().call();
+    console.log(minimumContribution);
     return {};
   }
 

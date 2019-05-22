@@ -75,7 +75,7 @@ contract Campaign {
         request.complete = true;
     }
 
-    function summary() public view restricted returns(uint, uint, uint, uint, address) {
+    function summary() public view returns(uint, uint, uint, uint, address) {
       return (
         minimumContribution,
         address(this).balance,
