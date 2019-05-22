@@ -1,4 +1,4 @@
-import solc from 'solc';
+const solc = require('solc');
 const path = require('path');
 const fs = require('fs-extra');
 
