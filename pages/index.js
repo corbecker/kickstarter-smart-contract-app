@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import instance from '../ethereum/factory';
 import { Card, Button, Grid } from 'semantic-ui-react';
 import Layout from '../components/Layout';
+import { Link } from '../routes';
 
 class App extends Component{
 
@@ -24,7 +25,9 @@ class App extends Component{
     const items = this.state.campaigns.map(address => {
       return {
         header: address,
-        description: <a>View Campaign</a>,
+        description: (
+          <Link route={`campaigns/${address}`}><a>View Campaign</a></Link>
+        ),
         fluid: true
       };
     });
@@ -42,7 +45,9 @@ class App extends Component{
             <div>{this.renderCampaigns()}</div>
           </Grid.Column>
           <Grid.Column width={4}>
-            <Button content="CREATE CAMPAIGN" icon="plus" primary/>
+            <Link route="/campaigns/new">
+              <a><Button content="CREATE CAMPAIGN" icon="plus" primary/></a>
+            </Link>
           </Grid.Column>
         </Grid>
       </Layout>
