@@ -30,7 +30,7 @@ contract Campaign {
     uint public contributerCount;
     
     modifier restricted {
-        require(msg.sender == manager);
+        require(msg.sender == manager, "Must be manager.");
         _;
     }
     
@@ -40,7 +40,7 @@ contract Campaign {
     }
     
     function contribute() public payable{
-        require(msg.value >= minimumContribution);
+        require(msg.value >= minimumContribution, "Minimum contribution not met.");
         approvers[msg.sender] = true;
         contributerCount++;
     }
@@ -58,8 +58,8 @@ contract Campaign {
     function approveRequest(uint index) public {
         Request storage request = requests[index];
         
-        require(approvers[msg.sender]);
-        require(!request.approvals[msg.sender]);
+        require(approvers[msg.sender], "Must be a contributer");
+        require(!request.approvals[msg.sender], "Must not have already approved");
         
         request.approvals[msg.sender] = true;
         request.approvalCount++;
@@ -68,14 +68,14 @@ contract Campaign {
     function finalizeRequest(uint index) public restricted {
         Request storage request = requests[index];
         
-        require(!request.complete);
-        require(request.approvalCount > (contributerCount/2));
+        require(!request.complete, "Request not already completed");
+        require(request.approvalCount > (contributerCount/2), "Must meet consensus");
         
         request.recipient.transfer(request.value);
         request.complete = true;
     }
 
-    function sumnmary() public view restricted returns(uint, uint, uint, uint, address) {
+    function summary() public view restricted returns(uint, uint, uint, uint, address) {
       return (
         minimumContribution,
         address(this).balance,

@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 import Layout from '../../components/Layout';
 import { Grid } from 'semantic-ui-react';
-import instance from '../../ethereum/factory';
+import getCampaign from '../../ethereum/campaign';
+import web3 from '../../ethereum/web3';
 
 class CampaignShow extends Component {
+
+  static async getInitialProps(props) {
+    const accounts = await web3.eth.getAccounts();
+    const campaign = getCampaign(props.query.address);
+    console.log(campaign)
+    const summary = await campaign.methods.summary().call();
+
+    console.log(summary);
+    return {};
+  }
 
   render() {
     return (
