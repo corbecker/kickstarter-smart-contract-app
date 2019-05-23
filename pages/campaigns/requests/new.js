@@ -3,6 +3,7 @@ import Layout from '../../../components/Layout';
 import { Form, Input, Message, Button } from 'semantic-ui-react';
 import getCampaign from '../../../ethereum/campaign';
 import web3 from '../../../ethereum/web3';
+import Router, {Link } from '../../../routes';
 
 class RequestNew extends Component {
 
@@ -31,6 +32,7 @@ class RequestNew extends Component {
           web3.utils.toWei(this.state.value), 
           this.state.recipient)
         .send({ from: accounts[0] })
+      Router.pushRoute(`campaigns/${this.props.address}/requests`)
     }catch (err) {
       this.setState({errorMessage: err.message})
     }
@@ -40,6 +42,7 @@ class RequestNew extends Component {
   render() {
     return (
       <Layout>
+        <Link route={`/campaigns/${this.props.address}/requests`}><a>Back</a></Link>
         <h3>New Request</h3>
         <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage}>
           <Form.Field>
