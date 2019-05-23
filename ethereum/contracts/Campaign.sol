@@ -65,7 +65,7 @@ contract Campaign {
         request.approvalCount++;
     }
     
-    function finalizeRequest(uint index) public restricted {
+    function finalizeRequest(uint index) public payable restricted {
         Request storage request = requests[index];
         
         require(!request.complete, "Request not already completed");

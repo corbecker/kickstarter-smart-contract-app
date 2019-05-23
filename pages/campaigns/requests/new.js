@@ -32,7 +32,7 @@ class RequestNew extends Component {
           web3.utils.toWei(this.state.value), 
           this.state.recipient)
         .send({ from: accounts[0] })
-      Router.pushRoute(`campaigns/${this.props.address}/requests`)
+      Router.replaceRoute(`/campaigns/${this.props.address}/requests`)
     }catch (err) {
       this.setState({errorMessage: err.message})
     }
