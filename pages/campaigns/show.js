@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Layout from '../../components/Layout';
-import { Grid, Card } from 'semantic-ui-react';
+import { Grid, Card, Button } from 'semantic-ui-react';
 import getCampaign from '../../ethereum/campaign';
 import web3 from '../../ethereum/web3';
 import ContributeForm from '../../components/ContributeForm';
+import { Link } from '../../routes';
 
 class CampaignShow extends Component {
 
@@ -69,7 +70,11 @@ class CampaignShow extends Component {
             <ContributeForm address={this.props.address}></ContributeForm>
           </Grid.Column>
         </Grid>
-
+        <Grid>
+          <Grid.Column>
+            <Link route={`/campaigns/${this.props.address}/requests`}><a><Button primary>View Requests</Button></a></Link>
+          </Grid.Column>
+        </Grid>
       </Layout>
     )
   }

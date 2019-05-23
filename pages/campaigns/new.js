@@ -3,7 +3,7 @@ import Layout from '../../components/Layout';
 import { Form, Button, Input, Message } from 'semantic-ui-react';
 import factory from '../../ethereum/factory';
 import web3 from '../../ethereum/web3';
-import { Link, Router } from '../../routes';
+import { Router } from '../../routes';
 
 class CampaignNew extends Component {
 
