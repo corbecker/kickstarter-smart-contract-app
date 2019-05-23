@@ -3,12 +3,13 @@ import { Table, Button } from 'semantic-ui-react';
 import { Link } from '../routes';
 import web3 from '../ethereum/web3';
 import getCampaign from '../ethereum/campaign';
+import { Router } from '../routes';
 
 class RequestRow extends Component {
 
   state = {
     approveLoading: false,
-    finalizeLoading: false
+    finalizeLoading: false,
   }
 
   onApprove = async () => {
@@ -46,17 +47,26 @@ class RequestRow extends Component {
 
   render() {
     
-    const { description, value, recipient, approvalCount } = this.props.request;
+    const { description, value, recipient, approvalCount, complete } = this.props.request;
+    const readyToFInalize = approvalCount > (this.props.contributerCount / 2);
 
     return (
-      <Table.Row>
+      <Table.Row disabled={complete} positive={readyToFInalize && !complete}>
         <Table.Cell>{this.props.ID}</Table.Cell>
         <Table.Cell>{description}</Table.Cell>
         <Table.Cell>{web3.utils.fromWei(value, 'ether')}</Table.Cell>
         <Table.Cell>{recipient}</Table.Cell>
         <Table.Cell>{approvalCount}/{this.props.contributerCount}</Table.Cell>
-        <Table.Cell><Button onClick={this.onApprove} color="green" basic loading={this.state.approveLoading}>Approve</Button></Table.Cell>
-        <Table.Cell><Button onClick={this.onFinalize} color="red" basic loading={this.state.finalizeLoading}>Finalize</Button></Table.Cell>
+        <Table.Cell>
+        {complete ? null : (
+          <Button onClick={this.onApprove} color="green" basic loading={this.state.approveLoading}>Approve</Button>
+        )}
+        </Table.Cell>
+        <Table.Cell>
+        {complete ? null : (
+          <Button onClick={this.onFinalize} color="teal" basic loading={this.state.finalizeLoading}>Finalize</Button>
+        )}
+        </Table.Cell>
       </Table.Row>
     )
   }
