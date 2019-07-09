@@ -44,7 +44,7 @@ class CampaignRequests extends Component {
     return (
       <Layout>
         <h3>Pending Requests</h3>
-        <Link route={`/campaigns/${this.props.address}/requests/new`}><a><Button primary>Add Request</Button></a></Link>
+        <Link route={`/campaigns/${this.props.address}/requests/new`}><a><Button style={{marginBottom: 10}} floated="right" primary>Add Request</Button></a></Link>
         <Table>
           <Header>
             <Row>
@@ -61,6 +61,7 @@ class CampaignRequests extends Component {
             {this.renderRows()}
           </Body>
         </Table>
+        <div>Found {this.props.requestsCount} requests.</div>
       </Layout>
     )
   }
